@@ -1,0 +1,71 @@
+// Nome: carregaImagem
+// Definição: carrega um arquivo texto de uma das imagens do dataset
+
+// Nome: calculaDimensao
+// Definição: determina quantidade de linhas e colunas da imagem carregada para que seja alocada em matriz
+
+// Nome: descritorILBP
+// Definição: fornece valores que descrevem uma imagem de entrada a partir do método ILBP
+// Anotações:
+  -> para CADA pixel:
+    - gera nova matriz
+    - compara com pixels vizinhos
+    - calcula média entre pixel central e pixels vizinhos
+    - compara cada um com média (maior / menor)
+    - gera valor binário
+    - converte para decimal
+    - rotaciona binário
+    - encontra menor valor decimal possível
+  -> gera vetor de frequência contendo quantas vezes esses menores valores aparecem (dica: calloc e incrementação)
+
+// Nome: descritorGLCM
+// Definição: fornece valores que descrevem uma imagem de entrada a partir do método GLCM
+  -> gera nova matriz indicando quantas vezes o primeiro valor aparece à direita do segunda valor
+    - primeiro valor = colunas
+    - segundo valor = colunas
+    - (x,y) => x à direita de y
+  -> gerar outras matrizes semelhantes para cada direção (cima, baixo, esquerda, diagonais...)
+    - ou seja, 8 matrizes no total
+  -> aplicar 3 métricas para cada matriz, obtendo um total de 24 matrizes
+
+// Nome: montaTreinamento
+// Definição: abre e armazena 25 arquivos texto aleatoriamente dentre cada classe (pasta?) com 50, e então as armazena em um vetor
+
+// Nome: montaTeste
+// Definição: abre e armazena os 25 arquivos texto restantes de cada classe e os armazena em outro vetor
+
+// Nome: verificaSelecionados
+// Definição: percorre um vetor verificando se seus elementos já foram selecionados em um vetor anterior
+
+// Nome: isSelecionado
+// Definição: percorre o vetor de selecionados para verificar se elemento já foi selecionado
+
+// Nome: alocaImagem
+// Definição: aloca dinamicamente um arquivo texto de imagem em uma matriz
+
+// Nome: concatenaDescritores
+// Definição: concatena vetores resultantes dos dois métodos descritores em um único vetor descritor
+
+// Nome: normalizaDescritor
+// Definição: aplica método da normalização em um vetor descritor de 536 elementos
+
+// Nome: calculaMediaDescritores
+// Definição: calcula a média dos vetores descritores das imagens de uma classe
+
+// Nome: calculaEuclidiana
+// Definição: calcula distância euclidiana entre vetor normalizado e dois valores de médias do treinamento
+// Anotações:
+  - são gerados então outros dois vetores (grama euclidiana e asfalto euclidiana)
+  - comparar dois vetores para verificar se é grama ou asfalto (?)
+
+// Nome: classificaEuclidiana
+// Definição: classifica vetores com base na distância euclidiana calculada
+
+// Nome: calculaAcerto
+// Definição: calcula porcentagem de imagens do conjunto teste classificadas corretamente
+
+// Nome: calculaFalsaAceitacao
+// Definição: calcula porcentagem de imagens do conjunto teste que são "asfalto" e foram classificadas como "grama"
+
+// Nome: calculaFalsaRejeicao
+// Definição: calcula porcentagem de imagens do conjunto teste que são "grama" e foram classificadas como "asfalto"
