@@ -1,3 +1,11 @@
+// Trabalho 2
+// Estruturas de Dados e Algoritmos
+// Prof. Matheus Mendelson
+
+// Grupo:
+// Victor Alves Gomide - 15/0150741
+// Wellingthon Diego Resende de Lima - 15/0152183
+
 #include "aloca_matriz.h"
 #include "carrega_arquivos.h"
 
