@@ -1,34 +1,13 @@
+#include "carrega_arquivos.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
 #define QTDE_CONJUNTO 50
 #define QTDE_ALEATORIOS 25
 #define TAM_ARQUIVOS 32
 
-// Protótipos de Função
-FILE *carregaUmArquivoImagem(int classe, int numeroInt);
-void gera25Aleatorios(int *aleatorio);
-void geraVetorTreinamento(FILE **treinamento, int *aleatoriosAsfalto, int *aleatoriosGrama);
-void gera25Restantes(int *aleatorios, int *restantes);
-void geraVetorTeste(FILE **teste, int *aleatoriosAsfalto, int *aleatoriosGrama, int *restantesAsfalto, int *restantesGrama);
-
-// Main
-int main(int argc, char const *argv[]) {
-  int i, aleatoriosAsfalto[QTDE_ALEATORIOS], aleatoriosGrama[QTDE_ALEATORIOS], restantesAsfalto[QTDE_ALEATORIOS], restantesGrama[QTDE_ALEATORIOS];
-  FILE *treinamento[QTDE_CONJUNTO], *teste[QTDE_CONJUNTO];
-  srand(time(NULL));
-  geraVetorTreinamento(treinamento, aleatoriosAsfalto, aleatoriosGrama);
-  geraVetorTeste(teste, aleatoriosAsfalto, aleatoriosGrama, restantesAsfalto, restantesGrama);
-  for(i=0;i<QTDE_CONJUNTO;i++) {
-    fclose(treinamento[i]);
-    fclose(teste[i]);
-  }
-  return 0;
-}
-
 // Funções
-
 void geraVetorTeste(FILE **teste, int *aleatoriosAsfalto, int *aleatoriosGrama, int *restantesAsfalto, int *restantesGrama) {
   int i;
   gera25Restantes(aleatoriosAsfalto, restantesAsfalto);

@@ -1,29 +1,25 @@
+#include "aloca_matriz.h"
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #define LINHAS 1025
 #define COLUNAS 1025
 
-// Protótipos de Função
-FILE *abreArquivoLeitura();
-//int encontraColunasImagem(FILE *arq);
-int **alocaMatriz();
-void desalocaMatriz(int **matriz);
-void leMatriz(int **matriz);
-void preencheMatriz(int **matriz, FILE *arquivo);
 
-
-// Main
-int main(int argc, char const *argv[]) {
-  FILE *imagem;
-  int colunas, **matriz;
-  imagem = abreArquivoLeitura();
-  matriz = alocaMatriz();
-  preencheMatriz(matriz, imagem);
-  leMatriz(matriz);
-  desalocaMatriz(matriz);
-  fclose(imagem);
-  return 0;
-}
+// // Main
+// int main(int argc, char const *argv[]) {
+//   FILE *imagem;
+//   int colunas, **matriz;
+//   imagem = abreArquivoLeitura();
+//   matriz = alocaMatriz();
+//   preencheMatriz(matriz, imagem);
+//   leMatriz(matriz);
+//   desalocaMatriz(matriz);
+//   fclose(imagem);
+//   return 0;
+// }
 
 // Funções
 void leMatriz(int **matriz) {
@@ -73,31 +69,7 @@ int **alocaMatriz() {
   }
   return v;
 }
-/*
-int **alocaMatriz() {
-  int i, j;
-  int **m = (int**) malloc(LINHAS * sizeof(int*));
-  for (i=0;i<LINHAS;i++)
-       m[i] = (int*) malloc(COLUNAS * sizeof(int));
-  if (m == NULL) {
-    printf("Erro na alocação da matriz!\n");
-    exit(1);
-  }
-  printf("Matriz alocada com sucesso!\n");
-  return m;
-}
 
-int encontraColunasImagem(FILE *arq) {
-  int cont=1;
-  char c;
-  do {
-    if ((c=fgetc(arq)) == ';') {
-      cont += 1;
-    }
-  } while (c != '\n');
-  return cont;
-}
-*/
 FILE *abreArquivoLeitura() {
   FILE *arq;
   arq = fopen("DataSet/asphalt/asphalt_01.txt","r");
