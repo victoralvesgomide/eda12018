@@ -11,7 +11,7 @@ extern int colunas;
 FILE *abreArquivoLeitura();
 int **alocaMatriz();
 void desalocaMatriz(int **matriz);
-void leMatriz(int **matriz);
+void leMatriz(int **matriz, FILE *arq);
 void preencheMatriz(int **matriz, FILE *arquivo);
 
 #endif

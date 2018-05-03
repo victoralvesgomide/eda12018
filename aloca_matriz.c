@@ -22,13 +22,13 @@
 // }
 
 // Funções
-void leMatriz(int **matriz) {
+void leMatriz(int **matriz, FILE *arq) {
   int i, j;
   for (i=0;i<LINHAS;i++) {
     for(j=0;j<COLUNAS;j++) {
-      printf("%d ", matriz[i][j]);
+      fprintf(arq, "%d ", matriz[i][j]);
     }
-  printf("\n");
+  fprintf(arq, "\n");
   }
 }
 
@@ -37,10 +37,7 @@ void preencheMatriz(int **matriz, FILE *arquivo) {
   for (i=0;i<LINHAS;i++) {
     for(j=0;j<COLUNAS;j++) {
       fscanf(arquivo, "%d;", &pixel);
-      printf("i:%d j:%d\n", i, j);
-      printf("Pixel lido: %d\n", pixel);
       matriz[i][j] = pixel;
-      printf("Armazenado na matriz: %d\n\n", matriz[i][j]);
     }
   }
 }
