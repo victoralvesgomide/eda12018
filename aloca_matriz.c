@@ -19,7 +19,7 @@ int main(int argc, char const *argv[]) {
   imagem = abreArquivoLeitura();
   matriz = alocaMatriz();
   preencheMatriz(matriz, imagem);
-  //leMatriz(matriz);
+  leMatriz(matriz);
   desalocaMatriz(matriz);
   fclose(imagem);
   return 0;
@@ -30,7 +30,7 @@ void leMatriz(int **matriz) {
   int i, j;
   for (i=0;i<LINHAS;i++) {
     for(j=0;j<COLUNAS;j++) {
-      printf("%d ", **(matriz+i*COLUNAS+j));
+      printf("%d ", matriz[i][j]);
     }
   printf("\n");
   }
@@ -43,8 +43,8 @@ void preencheMatriz(int **matriz, FILE *arquivo) {
       fscanf(arquivo, "%d;", &pixel);
       printf("i:%d j:%d\n", i, j);
       printf("Pixel lido: %d\n", pixel);
-      **(matriz+i*COLUNAS+j) = pixel;
-      printf("Armazenado na matriz: %d\n\n", **(matriz+i*COLUNAS+j));
+      matriz[i][j] = pixel;
+      printf("Armazenado na matriz: %d\n\n", matriz[i][j]);
     }
   }
 }
