@@ -6,29 +6,26 @@ typedef struct Contatos {
   char nome[100];
   char telefone[10];
   char endereco[100];
-  int cep;
+  long int cep;
   char datNasc[10];
 } contato;
 
 typedef struct Lista {
   struct Lista *anterior;
   struct Lista *proximo;
-  int conteudo;
+  contato conteudo;
 } lista;
 
 // Protótipos de Função
 lista *criaListaVazia();
-void adicionaInicioLista(lista *dupla);
+lista *adicionaInicioLista(lista *dupla);
 void imprimeLista(lista *dupla);
 
 // Main
 int main(int argc, char const *argv[]) {
   lista *dupla;
   dupla = criaListaVazia();
-  adicionaInicioLista(dupla);
-  adicionaInicioLista(dupla);
-  imprimeLista(dupla);
-  /*
+
   int opc;
   do {
     printf("*** Menu ***\n");
@@ -40,7 +37,7 @@ int main(int argc, char const *argv[]) {
     scanf("%d",&opc);
 
     if (opc == 1) {
-      // função para inserir novo registro
+      dupla = adicionaInicioLista(dupla);
     }
     if (opc == 2) {
       // função para remover registro
@@ -48,10 +45,11 @@ int main(int argc, char const *argv[]) {
       // função para buscar registro
     }
     if (opc == 4) {
-      // função para visualizar agenda
+      printf("Conteúdo da lista:\n");
+      imprimeLista(dupla);
     }
   } while(opc != 5);
-  */
+
   return 0;
 }
 // Funções
@@ -59,27 +57,43 @@ lista *criaListaVazia() {
   return NULL;
 }
 
-void adicionaInicioLista(lista *dupla) {
+lista *adicionaInicioLista(lista *dupla) {
   lista *novo;
   novo = (lista *) malloc(sizeof(lista));
-  printf("Insira o conteúdo do novo elemento da lista: ");
-  scanf("%d", &novo->conteudo);
-  novo->anterior = NULL;
-  if(dupla == NULL)
-    novo->proximo = NULL;
-  else {
-    novo->proximo = dupla;
-    dupla->anterior = novo;
-    dupla = novo;
+  if (novo == NULL) {
+    return 0;
   }
+
+  printf("Nome: "); scanf("%s", novo->conteudo.nome);
+  printf("Telefone: "); scanf("%s", novo->conteudo.telefone);
+  printf("Endereco: "); scanf("%s", novo->conteudo.endereco);
+  printf("CEP: "); scanf("%ld", &novo->conteudo.cep);
+  printf("Data de Nascimento: "); scanf("%s", novo->conteudo.datNasc);
+
+  novo->proximo = dupla;
+  novo->anterior = NULL;
+  if (dupla != NULL) {
+    dupla->anterior = novo;
+  }
+  dupla = novo;
+  return dupla;
 }
 
 void imprimeLista(lista *dupla) {
-  lista *aux;
-  aux = NULL;
-  printf("Conteúdo da lista:\n");
-  for(aux = dupla; aux->proximo == NULL; aux = dupla->proximo) {
-    printf("blabla\n");
-    printf("%d ", aux->conteudo);
+  if (dupla == NULL) {
+    printf("\n");
+    return;
+  } else {
+      printf("Nome: ");
+      printf("%s\n", dupla->conteudo.nome);
+      printf("Telefone: ");
+      printf("%s\n", dupla->conteudo.telefone);
+      printf("Endereco: ");
+      printf("%s\n", dupla->conteudo.endereco);
+      printf("CEP: ");
+      printf("%ld\n", dupla->conteudo.cep);
+      printf("Data de Nascimento: ");
+      printf("%s\n", dupla->conteudo.datNasc);
+      imprimeLista(dupla->proximo);
   }
 }
