@@ -20,6 +20,7 @@ typedef struct Lista {
 lista *criaListaVazia();
 lista *adicionaInicioLista(lista *dupla);
 void imprimeLista(lista *dupla);
+void escreverArquivo(lista *dupla);
 
 // Main
 int main(int argc, char const *argv[]) {
@@ -70,6 +71,8 @@ lista *adicionaInicioLista(lista *dupla) {
   printf("CEP: "); scanf("%ld", &novo->conteudo.cep);
   printf("Data de Nascimento: "); scanf("%s", novo->conteudo.datNasc);
 
+  escreverArquivo(novo);
+
   novo->proximo = dupla;
   novo->anterior = NULL;
   if (dupla != NULL) {
@@ -96,4 +99,20 @@ void imprimeLista(lista *dupla) {
       printf("%s\n", dupla->conteudo.datNasc);
       imprimeLista(dupla->proximo);
   }
+}
+
+void escreverArquivo(lista *dupla) {
+  FILE *arq = fopen("contatos.txt", "a+");
+  if (arq == NULL) {
+    printf("Falha");
+    exit(1);
+  }
+
+    fprintf(arq, "%s\n", dupla->conteudo.nome);
+    fprintf(arq, "%s\n", dupla->conteudo.telefone);
+    fprintf(arq, "%s\n", dupla->conteudo.endereco);
+    fprintf(arq, "%ld\n", dupla->conteudo.cep);
+    fprintf(arq, "%s\n", dupla->conteudo.datNasc);
+    fprintf(arq, "%s\n", "$");
+
 }
