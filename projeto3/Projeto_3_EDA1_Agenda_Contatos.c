@@ -8,11 +8,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // Definições de Tipos de Dados
 typedef struct Contatos {
   char nome[100];
-  char telefone[10];
+  char telefone[11];
   char endereco[100];
   long int cep;
   char datNasc[10];
@@ -29,6 +30,7 @@ lista *criaListaVazia();
 lista *adicionaInicioLista(lista *dupla);
 void imprimeLista(lista *dupla);
 void escreveArquivo(lista *dupla, char *modo);
+void desalocaLista(lista *dupla);
 
 // Main
 int main(int argc, char const *argv[]) {
@@ -60,12 +62,22 @@ int main(int argc, char const *argv[]) {
         imprimeLista(dupla);
     }
   } while (opc != 5);
-
   escreveArquivo(dupla, "w");
+  desalocaLista(dupla);
   return 0;
 }
 
 // Funções
+void desalocaLista(lista *dupla) {
+  while(dupla->proximo != NULL) {
+    lista *aux;
+    aux = dupla;
+    dupla = dupla->proximo;
+    free(aux);
+  }
+  free(dupla);
+}
+
 lista *criaListaVazia() {
   return NULL;
 }
@@ -77,15 +89,31 @@ lista *adicionaInicioLista(lista *dupla) {
     return 0;
   }
 
-  fflush(stdin);
-  printf("Nome: "); scanf("%s", novo->conteudo.nome);
-  fflush(stdin);
-  printf("Telefone: "); scanf("%s", novo->conteudo.telefone);
-  fflush(stdin);
-  printf("Endereco: "); scanf("%s", novo->conteudo.endereco);
+  setbuf(stdin,NULL);
+  printf("Nome: "); scanf("%[^\n]s", novo->conteudo.nome);
+  setbuf(stdin,NULL);
+
+  int i;
+  char telAux[6];
+  printf("Telefone (apenas digitos): ");
+  for(i=0;i<5;i++) {
+    telAux[i] = getchar();
+  }
+  strcpy(novo->conteudo.telefone, telAux);
+  strcat(novo->conteudo.telefone, "-");
+  for(i=0;i<4;i++) {
+    telAux[i] = getchar();
+  }
+  telAux[4] = '\0';
+  strcat(novo->conteudo.telefone, telAux);
+  puts(novo->conteudo.telefone);
+
+  //setbuf(stdin,NULL);
+  printf("Endereco: "); scanf("%[^\n]s", novo->conteudo.endereco);
+  setbuf(stdin,NULL);
   printf("CEP: "); scanf("%ld", &novo->conteudo.cep);
-  fflush(stdin);
-  printf("Data de Nascimento: "); scanf("%s", novo->conteudo.datNasc);
+  setbuf(stdin,NULL);
+  printf("Data de nascimento: "); scanf("%[^\n]s", novo->conteudo.datNasc);
 
   novo->proximo = dupla;
   novo->anterior = NULL;
